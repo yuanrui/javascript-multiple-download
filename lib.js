@@ -20,14 +20,15 @@ var Downer = (function(files){
 	 */
 	function downloadFile(fileName, contentOrPath){
 		var aLink = document.createElement("a"),
-			evt = document.createEvent("HTMLEvents"),
+			evt = document.createEvent("MouseEvents"),
 			isData = contentOrPath.slice(0, 5) === "data:",
 			isPath = contentOrPath.lastIndexOf(".") > -1;
 
 		// 初始化点击事件
-		// 注：initEvent 不加后两个参数在FF下会报错
-		evt.initEvent("click",false,false);
-
+		// 注：initEvent 不加后两个参数在FF下会报错 support FireFox
+		evt.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+		//open in new window
+		aLink.setAttribute("target","_blank");
 		// 添加文件下载名
 		aLink.download = fileName;
 
